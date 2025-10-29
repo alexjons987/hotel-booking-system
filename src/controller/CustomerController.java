@@ -4,6 +4,7 @@ import models.Customer;
 import services.CustomerService;
 import util.InputHelper;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class CustomerController {
@@ -23,25 +24,11 @@ public class CustomerController {
             menuChoice = InputHelper.readInt(scanner, 0, 5);
 
             switch (menuChoice) {
-                case 1:
-                    addNewCustomer(scanner);
-                    break;
-                case 2:
-                    System.out.println("- Show all customers -");
-
-                    break;
-                case 3:
-                    System.out.println("- Search customer by e-mail -");
-
-                    break;
-                case 4:
-                    System.out.println("- Update customer city -");
-
-                    break;
-                case 5:
-                    System.out.println("- Remove customer -");
-                    break;
-
+                case 1 -> addNewCustomer(scanner);
+                case 2 -> showAllCustomers();
+                case 3 -> findCustomerByEmail(scanner);
+                case 4 -> updateCustomerCity(scanner);
+                case 5 -> removeCustomer(scanner);
             }
         } while (menuChoice != 0);
     }
@@ -60,5 +47,26 @@ public class CustomerController {
         Customer customer = new Customer(newCustomerName, newCustomerEmail, newCustomerCity);
 
         customerService.addCustomer(customer);
+    }
+
+    private void showAllCustomers() {
+        System.out.println("- Show all customers -");
+        List<Customer> customers = customerService.getAllCustomers();
+        customers.forEach(System.out::println);
+    }
+
+    private void findCustomerByEmail(Scanner scanner) {
+        System.out.println("- Search customer by e-mail -");
+        System.out.println("[NOT IMPLEMENTED]"); // TODO: Implement
+    }
+
+    private void updateCustomerCity(Scanner scanner) {
+        System.out.println("- Update customer city -");
+        System.out.println("[NOT IMPLEMENTED]"); // TODO: Implement
+    }
+
+    private void removeCustomer(Scanner scanner) {
+        System.out.println("- Remove customer -");
+        System.out.println("[NOT IMPLEMENTED]"); // TODO: Implement
     }
 }
