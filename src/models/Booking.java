@@ -6,19 +6,19 @@ public class Booking {
     private int id;
     private int roomID;
     private int customerID;
-    private LocalDate endOfStay;
+    private LocalDate checkoutDate;
 
-    public Booking(int id, int roomID, int customerID, LocalDate endOfStay) {
+    public Booking(int id, int roomID, int customerID, LocalDate checkoutDate) {
         this.id = id;
         this.roomID = roomID;
         this.customerID = customerID;
-        this.endOfStay = endOfStay;
+        this.checkoutDate = checkoutDate;
     }
 
-    public Booking(int roomID, int customerID, LocalDate endOfStay) {
+    public Booking(int roomID, int customerID, LocalDate checkoutDate) {
         this.roomID = roomID;
         this.customerID = customerID;
-        this.endOfStay = endOfStay;
+        this.checkoutDate = checkoutDate;
     }
 
     public int getId() {
@@ -33,8 +33,8 @@ public class Booking {
         return customerID;
     }
 
-    public LocalDate getEndOfStay() {
-        return endOfStay;
+    public LocalDate getCheckoutDate() {
+        return checkoutDate;
     }
 }
 

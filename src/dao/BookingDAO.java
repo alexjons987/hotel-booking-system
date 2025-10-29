@@ -1,5 +1,9 @@
 package dao;
 
+import models.Booking;
+
+import java.time.LocalDate;
+
 public interface BookingDAO {
-    void bookRoom();
+    boolean bookRoom(Booking booking);
 }
