@@ -1,10 +1,12 @@
 package models;
 
+import java.math.BigDecimal;
+
 public class Room
 {
     private int id;
     private boolean is_available;
-    private double price;
+    private BigDecimal price;
     private String room_type;
 
     public Room(int id, boolean is_available, double price, String room_type) {
@@ -15,7 +17,7 @@ public class Room
     }
 
     public int getId() {return id;}
-    public boolean isIs_available() {return is_available;}
-    public double getPrice() {return price;}
+    public boolean is_available() {return is_available;}
+    public BigDecimal getPrice() {return price;}
     public String getRoom_type() {return room_type;}
 }
