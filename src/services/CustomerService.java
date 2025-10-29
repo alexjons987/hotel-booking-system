@@ -15,4 +15,8 @@ public class CustomerService {
     public List<Customer> getAllCustomers() {
         return customerDAO.getAllCustomers();
     }
+
+    public List<Customer> findCustomersByEmail(String searchTerm) {
+        return customerDAO.findCustomersByEmail(searchTerm);
+    }
 }
