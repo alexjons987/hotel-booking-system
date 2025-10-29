@@ -34,4 +34,8 @@ public class Customer {
     public String getCity() {
         return city;
     }
+
+    public String toString() {
+        return String.format("ID: %d | Name: %s | E-Mail: %s | City: %s", this.id, this.name, this.email, this.city);
+    }
 }
