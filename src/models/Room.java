@@ -12,7 +12,7 @@ public class Room
     public Room(int id, boolean is_available, double price, String room_type) {
         this.id = id;
         this.is_available = is_available;
-        this.price = price;
+        this.price = BigDecimal.valueOf(price);
         this.room_type = room_type;
     }
 
