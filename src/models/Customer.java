@@ -2,9 +2,9 @@ package models;
 
 public class Customer {
     private int id;
-    private String name;
-    private String email;
-    private String city;
+    private final String name;
+    private final String email;
+    private final String city;
 
     public Customer(String name, String email, String city) {
         this.name = name;
@@ -33,5 +33,9 @@ public class Customer {
 
     public String getCity() {
         return city;
+    }
+
+    public String toString() {
+        return String.format("ID: %d | Name: %s | E-Mail: %s | City: %s", this.id, this.name, this.email, this.city);
     }
 }

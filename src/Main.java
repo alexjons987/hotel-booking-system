@@ -1,5 +1,33 @@
+import controller.CustomerController;
+import util.InputHelper;
+
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        // TODO: Add switch-case to call on each controller
+        Scanner scanner = new Scanner(System.in);
+        CustomerController customerController = new CustomerController();
+
+        int menuChoice;
+        do {
+            System.out.println("\n- HBS -");
+            System.out.println("1. Manage customers");
+            System.out.println("2. Manage rooms");
+            System.out.println("3. Manage bookings");
+            System.out.println("0. Exit");
+            menuChoice = InputHelper.readInt(scanner, 0, 3);
+
+            switch (menuChoice) {
+                case 1:
+                    customerController.runMenu(scanner);
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+
+            }
+        } while (menuChoice != 0);
+        System.out.println("Goodbye!");
     }
 }
