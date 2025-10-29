@@ -57,7 +57,11 @@ public class CustomerController {
 
     private void findCustomerByEmail(Scanner scanner) {
         System.out.println("- Search customer by e-mail -");
-        System.out.println("[NOT IMPLEMENTED]"); // TODO: Implement
+        System.out.print("Search term: ");
+        String searchTerm = scanner.nextLine().trim();
+
+        List<Customer> foundCustomers = customerService.findCustomersByEmail(searchTerm);
+        foundCustomers.forEach(System.out::println);
     }
 
     private void updateCustomerCity(Scanner scanner) {

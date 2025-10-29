@@ -82,8 +82,38 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public List<Customer> findCustomerByEmail() {
-        return List.of(); // TODO: Implement
+    public List<Customer> findCustomersByEmail(String searchTerm) {
+        List<Customer> foundCustomers = new ArrayList<>();
+
+        String sql = """
+                SELECT customer_id, name, email, city
+                FROM customers
+                WHERE email LIKE ?;
+                """;
+
+        try (
+                Connection connection = Database.getConnection();
+                PreparedStatement prepStatement = connection.prepareStatement(sql);
+        ) {
+            prepStatement.setString(1, "%" + searchTerm + "%");
+
+            ResultSet resultSet = prepStatement.executeQuery();
+            while (resultSet.next()) {
+                foundCustomers.add(
+                        new Customer(
+                                resultSet.getInt("customer_id"),
+                                resultSet.getString("name"),
+                                resultSet.getString("email"),
+                                resultSet.getString("city")
+                        )
+                );
+            }
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return foundCustomers;
     }
 
     @Override
