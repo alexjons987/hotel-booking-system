@@ -2,9 +2,12 @@ package dao;
 
 import models.Room;
 
+import java.util.List;
+
 public interface RoomDAO
 {
     void addRoom(Room room);
-    void getAllRooms();
-    void getAvailableRooms();
+    List<Room> getRooms(Boolean filterToAvailable);
+    Room getRoomById(int id);
+    void EditRoom(Room room);
 }

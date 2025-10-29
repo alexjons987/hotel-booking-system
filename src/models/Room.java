@@ -9,10 +9,10 @@ public class Room
     private BigDecimal price;
     private String room_type;
 
-    public Room(int id, boolean is_available, double price, String room_type) {
+    public Room(int id, boolean is_available, BigDecimal price, String room_type) {
         this.id = id;
         this.is_available = is_available;
-        this.price = BigDecimal.valueOf(price);
+        this.price = price;
         this.room_type = room_type;
     }
 

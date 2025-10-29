@@ -4,6 +4,8 @@ import db.Database;
 import models.Room;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RoomDAOImpl implements RoomDAO
 {
@@ -23,15 +25,12 @@ public class RoomDAOImpl implements RoomDAO
         {
             st.execute(sql);
         }
-        catch (SQLException e){System.out.println(e.getMessage());}
+        catch (SQLException e){System.out.println("SQLException: " + e.getMessage());}
     }
 
     @Override
     public void addRoom(Room room) {
-        String sql = """ 
-                INSERT INTO rooms(is_available, price, room_type)
-                VALUES (?,?,?)
-                """;
+        String sql = "INSERT INTO rooms(is_available, price, room_type) VALUES (?,?,?)";
         try(
                 Connection con = Database.getConnection();
                 PreparedStatement pStat = con.prepareStatement(sql)
@@ -46,8 +45,10 @@ public class RoomDAOImpl implements RoomDAO
     }
 
     @Override
-    public void getAllRooms() {
-        String sql = "SELECT * FROM rooms ORDER BY room_id DESC";
+    public List<Room> getRooms(Boolean filterToAvailable) {
+        String sql = "SELECT * FROM rooms ORDER BY room_id ASC";
+        if(filterToAvailable){sql = "SELECT * FROM rooms WHERE is_available = TRUE ORDER BY room_id ASC";}
+        List<Room> rooms = new ArrayList<>();
         try(
                 Connection con = Database.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql);
@@ -56,34 +57,57 @@ public class RoomDAOImpl implements RoomDAO
         {
             while (rSet.next())
             {
-                System.out.println(rSet.getString("room_id"+" | "+"is_available"+" | "+"price"+" | "+"room_type"+" |"));
+                rooms.add(new Room(
+                        rSet.getInt(1),
+                        rSet.getBoolean(2),
+                        rSet.getBigDecimal(3),
+                        rSet.getString(4)));
             }
         }
-        catch (SQLException e)
-        {
-            System.out.println(e.getMessage());
-        }
+        catch (SQLException e) {System.out.println("SQLException: " + e.getMessage());}
+        return rooms;
     }
 
-    @Override
-    public void getAvailableRooms() {
-        String sql = "SELECT * FROM rooms WHERE is_available = TRUE ORDER BY room_id DESC";
+    public Room getRoomById(int id) {
+        String sql = "SELECT * FROM rooms WHERE room_id = ?";
+        Room retRoom;
         try(
                 Connection con = Database.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql);
                 ResultSet rSet = ps.executeQuery()
         )
         {
-            while (rSet.next())
-            {
-                System.out.println(rSet.getString("room_id"+" | "+" | "+"price"+" | "+"room_type"+" |"));
+            if(rSet.next()) {
+                retRoom = new Room(
+                        rSet.getInt(1),
+                        rSet.getBoolean(2),
+                        rSet.getBigDecimal(3),
+                        rSet.getString(4));
+                return retRoom;
             }
         }
-        catch (SQLException e)
-        {
-            System.out.println(e.getMessage());
-        }
+        catch (SQLException e) {System.out.println("SQLException: " + e.getMessage());}
+        return null;
     }
 
+    public void EditRoom(Room room) {
+        String sql = """
+                UPDATE rooms
+                SET is_available = ?, price = ?, room_type = ?
+                WHERE room_id = ?
+                """;
+        try(
+                Connection con = Database.getConnection();
+                PreparedStatement pStat = con.prepareStatement(sql)
+        )
+        {
+            pStat.setBoolean(1, room.is_available());
+            pStat.setBigDecimal(2,room.getPrice());
+            pStat.setString(3, room.getRoom_type());
+            pStat.setInt(4, room.getId());
+            pStat.executeUpdate();
+        }
+        catch (SQLException e){System.out.println("SQLException: " + e.getMessage());}
+    }
 
 }
