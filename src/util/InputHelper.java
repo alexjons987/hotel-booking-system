@@ -25,7 +25,7 @@ public class InputHelper {
                 if (choice >= min && choice <= max)
                     return choice;
             } catch (NumberFormatException ignored) {}
-            System.out.printf("Please enter a number %d - %d.%n", min, max);
+            System.out.printf("Please enter an allowed number (%d - %d).%n", min, max);
         }
     }
 }
