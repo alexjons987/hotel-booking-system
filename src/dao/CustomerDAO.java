@@ -1,5 +1,7 @@
 package dao;
 
-public interface CustomerDAO {
+import models.Customer;
 
+public interface CustomerDAO {
+    void addCustomer(Customer customer);
 }
