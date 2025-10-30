@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class CustomerService {
-    CustomerDAOImpl customerDAO = new CustomerDAOImpl();
+    final CustomerDAOImpl customerDAO = new CustomerDAOImpl();
 
     public void addCustomer(Customer customer) {
         customerDAO.addCustomer(customer);
@@ -25,6 +25,16 @@ public class CustomerService {
         Customer customer = customerDAO.getCustomerById(customerId);
 
         if (customerDAO.updateCustomerCity(customer, newCity) > 0) {
+            return Optional.of(customer);
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    public Optional<Customer> deleteCustomer(int customerId) {
+        Customer customer = customerDAO.getCustomerById(customerId);
+
+        if (customerDAO.deleteCustomer(customer) > 0) {
             return Optional.of(customer);
         } else {
             return Optional.empty();
