@@ -1,5 +1,7 @@
 package util;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class InputHelper {
@@ -29,6 +31,21 @@ public class InputHelper {
         }
     }
 
+    public static LocalDate readDate(Scanner sc, String prompt) {
+        LocalDate checkoutDate = null;
+
+        while (checkoutDate == null) {
+            System.out.println(prompt);
+            String input = sc.nextLine();
+            try {
+                checkoutDate = LocalDate.parse(input);
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date! Try again.");
+            }
+        }
+        return checkoutDate;
+    }
+  
     public static double readDouble(Scanner sc) {
         while (true) {
             System.out.print("> ");

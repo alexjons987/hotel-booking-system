@@ -1,3 +1,4 @@
+import controller.BookingController;
 import controller.CustomerController;
 import controller.RoomController;
 import util.InputHelper;
@@ -8,7 +9,9 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         CustomerController customerController = new CustomerController();
+        BookingController bookingController = new BookingController();
         RoomController roomController = new RoomController();
+      
         int menuChoice;
         do {
             System.out.println("\n- HBS -");
@@ -26,6 +29,7 @@ public class Main {
                     roomController.runMenu(scanner);
                     break;
                 case 3:
+                    bookingController.runBookingMenu(scanner);
                     break;
 
             }
