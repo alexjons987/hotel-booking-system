@@ -36,7 +36,8 @@ public class InputHelper {
 
         while (checkoutDate == null) {
             System.out.println(prompt);
-            String input = sc.nextLine();
+            System.out.print("> ");
+            String input = sc.nextLine().trim();
             try {
                 checkoutDate = LocalDate.parse(input);
             } catch (DateTimeParseException e) {

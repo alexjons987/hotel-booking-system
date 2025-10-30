@@ -3,6 +3,7 @@ package dao.impl;
 import dao.BookingDAO;
 import db.Database;
 import db.TransactionManager;
+import dto.BookingByEmailViewDTO;
 import dto.BookingViewDTO;
 import models.Booking;
 
@@ -90,5 +91,41 @@ public class BookingDAOImpl implements BookingDAO {
         }
 
         return allBookings;
+    }
+
+    public List<BookingByEmailViewDTO> getBookingByEmail(String email) {
+        List<BookingByEmailViewDTO> bookingByEmail = new ArrayList<>();
+
+        String sql = """
+                SELECT r.room_id, r.room_type, c.name, b.end FROM rooms r
+                JOIN bookings b ON r.room_id = b.room_id
+                JOIN customers c ON b.customer_id = c.customer_id
+                WHERE c.email = ?;
+                """;
+
+        try(Connection conn = Database.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, email);
+
+            try(ResultSet rs = stmt.executeQuery()) {
+                while(rs.next()) {
+                    bookingByEmail.add(
+                        new BookingByEmailViewDTO(
+                            rs.getInt("room_id"),
+                            rs.getString("room_type") ,
+                            rs.getString("name"),
+                            rs.getDate("end").toLocalDate()
+                        )
+                    );
+                }
+            } catch(SQLException e2) {
+                e2.printStackTrace();
+            }
+
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+        return bookingByEmail;
     }
 }
