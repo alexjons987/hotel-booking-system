@@ -99,7 +99,7 @@ public class CustomerController {
         System.out.print("Select customer (ID)");
         int customerId = InputHelper.readInt(scanner);
 
-        // Update
+        // Delete
         Optional<Customer> result = customerService.deleteCustomer(customerId);
 
         if(result.isEmpty()){

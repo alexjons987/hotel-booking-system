@@ -194,4 +194,29 @@ public class CustomerDAOImpl implements CustomerDAO {
 
         return 0;
     }
+
+    public boolean removeCustomerBookings(Customer customer) {
+        String sql = """
+                UPDATE rooms
+                SET is_available = TRUE
+                WHERE room_id IN (
+                    SELECT room_id FROM bookings WHERE customer_id = ?
+                );
+                """;
+
+        try (
+                Connection connection = Database.getConnection();
+                PreparedStatement prepStatement = connection.prepareStatement(sql)
+        ) {
+            prepStatement.setInt(1, customer.getId());
+
+            return prepStatement.executeUpdate() > 0; // executeUpdate() when we are using INSERT, UPDATE or DELETE
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            return false;
+        }
+
+        return false;
+    }
 }

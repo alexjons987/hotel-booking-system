@@ -25,8 +25,8 @@ CREATE TABLE bookings (
     room_id INT,
     customer_id INT,
     end DATE,
-	FOREIGN KEY (room_id) REFERENCES rooms(room_id),
-	FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+	FOREIGN KEY (room_id) REFERENCES rooms(room_id) ON DELETE CASCADE,
+	FOREIGN KEY (customer_id) REFERENCES customers(customer_id) ON DELETE CASCADE
 );
 
 -- data
@@ -41,7 +41,7 @@ INSERT INTO rooms(is_available, price, room_type)
 	VALUES	(true, 100, "Single"),
 			(true, 200, "Double"),
             (true, 200, "Haunted"),
-            (false, 3000, "Presedential"),
+            (false, 3000, "Presidential"),
             (false, 400, "Suite"),
             (false, 900, "Deluxe");
             
