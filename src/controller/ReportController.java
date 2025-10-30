@@ -1,10 +1,15 @@
 package controller;
 
+import models.Customer;
+import services.ReportService;
 import util.InputHelper;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class ReportController {
+
+    final ReportService reportService = new ReportService();
 
     public void runMenu(Scanner scanner) {
         int menuChoice;
@@ -28,7 +33,15 @@ public class ReportController {
 
     private void showBookingsPerCustomer() {
         System.out.println("- Bookings per customer -");
-        System.out.println("[NOT IMPLEMENTED]");
+        List<Customer> customerList = reportService.getCustomersAndBookingCount();
+        customerList.forEach(customer -> {
+            System.out.printf(
+                    "ID: %d | Name: %s | Bookings made: %d%n",
+                    customer.getId(),
+                    customer.getName(),
+                    customer.getBookingsMade()
+            );
+        });
     }
 
     private void showAvgPriceOnBookedRooms() {

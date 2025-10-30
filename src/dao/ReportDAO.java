@@ -1,5 +1,9 @@
 package dao;
 
-public interface ReportDAO {
+import models.Customer;
 
+import java.util.List;
+
+public interface ReportDAO {
+    List<Customer> getCustomersAndBookingCount();
 }
