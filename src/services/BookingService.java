@@ -1,6 +1,7 @@
 package services;
 
 import dao.impl.BookingDAOImpl;
+import db.TransactionManager;
 import models.Booking;
 
 import java.time.LocalDate;
@@ -8,12 +9,30 @@ import java.time.LocalDate;
 public class BookingService {
     BookingDAOImpl dao = new BookingDAOImpl();
 
-    public boolean bookRoom(int room_id, int customer_id, LocalDate checkoutDate) {
-        // TODO: validate room is available and that customer exists
+    public boolean bookRoom(Booking booking) {
+        try {
+            TransactionManager.begin();
 
-        Booking booking = new Booking(room_id, customer_id, checkoutDate);
-        return dao.bookRoom(booking);
+            boolean booked = dao.insertBooking(booking);
 
-        // TODO: set room as unavailable
+            if (!booked) {
+                TransactionManager.rollback();
+                return false;
+            }
+
+            boolean updated = dao.markRoomUnavailable(booking.getRoomID());
+
+            if (!updated) {
+                TransactionManager.rollback();
+                return false;
+            }
+
+            TransactionManager.commit();
+            return true;
+
+        } catch (Exception e) {
+            TransactionManager.rollback();
+            return false;
+        }
     }
 }

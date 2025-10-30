@@ -1,5 +1,6 @@
 package controller;
 
+import models.Booking;
 import services.BookingService;
 import util.InputHelper;
 
@@ -19,7 +20,8 @@ public class BookingController {
             switch(choice) {
                 case 1 -> bookRoom(scanner);
                 // case 2 -> getAllBookings();
-                // case 3 -> cancelBooking();
+                // case 3 -> getBookingsByCustomerEmail();
+                // case 4 -> cancelBooking();
                 case 0 -> { return; }
                 default -> System.out.println("Invalid choice, try again!");
             }
@@ -37,11 +39,15 @@ public class BookingController {
 
         LocalDate checkoutDate = InputHelper.readDate(scanner, "Add checkout date (YYYY-MM-DD): ");
 
-        boolean success = service.bookRoom(room_id, customer_id, checkoutDate);
+        boolean success = service.bookRoom(new Booking(room_id, customer_id, checkoutDate));
         if(success) {
             System.out.println("Your booking is confirmed");
         } else {
             System.out.println("Booking failed. Please try again.");
         }
     }
+
+    public void getAllBookings() {}
+    public void getBookingsByCustomerEmail() {}
+    public void cancelBooking() {}
 }
