@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class CustomerController {
 
-    CustomerService customerService = new CustomerService();
+    final CustomerService customerService = new CustomerService();
 
     public void runMenu(Scanner scanner) {
         int menuChoice;
@@ -91,6 +91,21 @@ public class CustomerController {
 
     private void removeCustomer(Scanner scanner) {
         System.out.println("- Remove customer -");
-        System.out.println("[NOT IMPLEMENTED]"); // TODO: Implement
+
+        // Print all customers and select by ID
+        List<Customer> customers = customerService.getAllCustomers();
+        customers.forEach(System.out::println);
+
+        System.out.print("Select customer (ID)");
+        int customerId = InputHelper.readInt(scanner);
+
+        // Update
+        Optional<Customer> result = customerService.deleteCustomer(customerId);
+
+        if(result.isEmpty()){
+            System.out.println("ID not found!");
+        } else {
+            System.out.printf("Deleted %d row(s)%n", result.stream().count());
+        }
     }
 }

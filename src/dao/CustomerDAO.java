@@ -3,7 +3,6 @@ package dao;
 import models.Customer;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface CustomerDAO {
     void addCustomer(Customer customer);
@@ -16,5 +15,5 @@ public interface CustomerDAO {
 
     int updateCustomerCity(Customer customer, String newCity);
 
-    Optional<Customer> deleteCustomer();
+    int deleteCustomer(Customer customer);
 }
