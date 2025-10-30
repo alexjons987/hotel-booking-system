@@ -42,8 +42,19 @@ public class InputHelper {
             } catch (DateTimeParseException e) {
                 System.out.println("Invalid date! Try again.");
             }
-
         }
         return checkoutDate;
+    }
+  
+    public static double readDouble(Scanner sc) {
+        while (true) {
+            System.out.print("> ");
+            String userInput = sc.nextLine().trim();
+            try {
+                return Double.parseDouble(userInput);
+            } catch (NumberFormatException ignored) {
+                System.out.println("Please enter a double.");
+            }
+        }
     }
 }
