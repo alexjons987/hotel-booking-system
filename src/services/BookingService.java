@@ -2,7 +2,10 @@ package services;
 
 import dao.impl.BookingDAOImpl;
 import db.TransactionManager;
+import dto.BookingViewDTO;
 import models.Booking;
+
+import java.util.List;
 
 public class BookingService {
     BookingDAOImpl dao = new BookingDAOImpl();
@@ -32,5 +35,9 @@ public class BookingService {
             TransactionManager.rollback();
             return false;
         }
+    }
+
+    public List<BookingViewDTO> getAllBookings() {
+        return dao.getAllBookings();
     }
 }

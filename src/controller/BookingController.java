@@ -1,5 +1,6 @@
 package controller;
 
+import dto.BookingViewDTO;
 import models.Booking;
 import services.BookingService;
 import util.InputHelper;
@@ -14,12 +15,15 @@ public class BookingController {
         while(true) {
             System.out.println("===Bookings===");
             System.out.println("1. Add a new booking");
+            System.out.println("2. See all bookings");
+            // System.out.println("3. Add a new booking");
+            //System.out.println("4. Add a new booking");
             System.out.println("0. Go back");
-            int choice = InputHelper.readInt(scanner, 0, 1);
+            int choice = InputHelper.readInt(scanner, 0, 4);
 
             switch(choice) {
                 case 1 -> bookRoom(scanner);
-                // case 2 -> getAllBookings();
+                case 2 -> getAllBookings();
                 // case 3 -> getBookingsByCustomerEmail();
                 // case 4 -> cancelBooking();
                 case 0 -> { return; }
@@ -47,7 +51,12 @@ public class BookingController {
         }
     }
 
-    public void getAllBookings() {}
+    public void getAllBookings() {
+        for (BookingViewDTO b : service.getAllBookings()) {
+            System.out.println(b);
+        }
+    }
+
     public void getBookingsByCustomerEmail() {}
     public void cancelBooking() {}
 }
