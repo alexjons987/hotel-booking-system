@@ -38,7 +38,7 @@ Ni ska jobba i grupper om 3–5 personer och bygga systemet.
 ### Del 2 – Utökade krav
 När grunden fungerar ska gruppen lägga till mer avancerade funktioner:
 #### Rapporter
-15. Visa antal bokningar per kund
+15. ~~Visa antal bokningar per kund~~
 16. Visa genomsnittspris på bokade rum
 17. Visa vilka rum som är lediga en viss period
 18. Visa alla kunder som aldrig bokat

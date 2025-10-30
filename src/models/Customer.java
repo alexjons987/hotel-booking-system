@@ -3,8 +3,9 @@ package models;
 public class Customer {
     private int id;
     private final String name;
-    private final String email;
-    private final String city;
+    private String email;
+    private String city;
+    private int bookingsMade;
 
     public Customer(String name, String email, String city) {
         this.name = name;
@@ -17,6 +18,12 @@ public class Customer {
         this.name = name;
         this.email = email;
         this.city = city;
+    }
+
+    public Customer(int id, String name, int bookingsMade) {
+        this.id = id;
+        this.name = name;
+        this.bookingsMade = bookingsMade;
     }
 
     public int getId() {
@@ -33,6 +40,10 @@ public class Customer {
 
     public String getCity() {
         return city;
+    }
+
+    public int getBookingsMade() {
+        return bookingsMade;
     }
 
     public String toString() {
