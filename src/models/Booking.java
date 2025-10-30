@@ -3,10 +3,10 @@ package models;
 import java.time.LocalDate;
 
 public class Booking {
-    private int id;
-    private int roomID;
-    private int customerID;
-    private LocalDate checkoutDate;
+    private final int id;
+    private final int roomID;
+    private final int customerID;
+    private final LocalDate checkoutDate;
 
     public Booking(int id, int roomID, int customerID, LocalDate checkoutDate) {
         this.id = id;
@@ -16,6 +16,7 @@ public class Booking {
     }
 
     public Booking(int roomID, int customerID, LocalDate checkoutDate) {
+        this.id = -1; // id not assigned by DB yet
         this.roomID = roomID;
         this.customerID = customerID;
         this.checkoutDate = checkoutDate;

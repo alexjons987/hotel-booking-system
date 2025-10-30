@@ -4,8 +4,6 @@ import dao.impl.BookingDAOImpl;
 import db.TransactionManager;
 import models.Booking;
 
-import java.time.LocalDate;
-
 public class BookingService {
     BookingDAOImpl dao = new BookingDAOImpl();
 
