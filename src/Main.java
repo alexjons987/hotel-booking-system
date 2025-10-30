@@ -1,4 +1,6 @@
+import controller.BookingController;
 import controller.CustomerController;
+import controller.RoomController;
 import controller.ReportController;
 import util.InputHelper;
 
@@ -7,8 +9,10 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        BookingController bookingController = new BookingController();
         CustomerController customerController = new CustomerController();
         ReportController reportController = new ReportController();
+        RoomController roomController = new RoomController();
 
         int menuChoice;
         do {
@@ -25,10 +29,10 @@ public class Main {
                     customerController.runMenu(scanner);
                     break;
                 case 2:
-                    // room controller menu
+                    roomController.runMenu(scanner);
                     break;
                 case 3:
-                    // booking controller menu
+                    bookingController.runBookingMenu(scanner);
                     break;
                 case 4:
                     reportController.runMenu(scanner);

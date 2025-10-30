@@ -20,11 +20,11 @@ Ni ska jobba i grupper om 3–5 personer och bygga systemet.
 5. ~~Ta bort kund (`deleteCustomer`)~~
 
 #### Rum
-6. Lägg till nya rum (`addRoom`)
-7. Visa alla rum (`getAllRooms`)
-8. Visa endast lediga rum (`getAvailableRooms`)
-9. Uppdatera priset för ett rum (`updateRoomPrice`)
-10. Ändra rumstyp (`updateRoomType`)
+6. ~~Lägg till nya rum (`addRoom`)~~
+7. ~~Visa alla rum (`getAllRooms`)~~
+8. ~~Visa endast lediga rum (`getAvailableRooms`)~~
+9. ~~Uppdatera priset för ett rum (`updateRoomPrice`)~~
+10. ~~Ändra rumstyp (`updateRoomType`)~~
 
 #### Bokningar
 11. Skapa en ny bokning (`bookRoom`)
