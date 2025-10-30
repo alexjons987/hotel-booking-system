@@ -7,7 +7,6 @@ import models.Customer;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class CustomerDAOImpl implements CustomerDAO {
 
@@ -125,7 +124,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 
         try (
                 Connection connection = Database.getConnection();
-                PreparedStatement prepStatement = connection.prepareStatement(sql);
+                PreparedStatement prepStatement = connection.prepareStatement(sql)
         ) {
             prepStatement.setString(1, "%" + searchTerm + "%");
 
@@ -174,7 +173,25 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public Optional<Customer> deleteCustomer() {
-        return Optional.empty(); // TODO: Implement
+    public int deleteCustomer(Customer customer) {
+        String sql = """
+                DELETE FROM customers
+                WHERE customer_id = ? LIMIT 1;
+                """;
+
+        try (
+                Connection connection = Database.getConnection();
+                PreparedStatement prepStatement = connection.prepareStatement(sql)
+        ) {
+            prepStatement.setInt(1, customer.getId());
+
+            return prepStatement.executeUpdate(); // executeUpdate() when we are using INSERT, UPDATE or DELETE
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            return 0;
+        }
+
+        return 0;
     }
 }
