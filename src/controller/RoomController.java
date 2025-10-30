@@ -29,7 +29,7 @@ public class RoomController
                 case 2 -> EditRoom(sc);
                 case 3 -> GetRoomList(false);
                 case 4 -> GetRoomList(true);
-                case 5 -> CheckRoom(sc);
+                case 5 -> CheckRoom(RoomIdLookUp(sc));
             }
         } while (menuChoice != 0);
 
@@ -51,14 +51,8 @@ public class RoomController
     }
     private void EditRoom(Scanner sc)
     {
-        System.out.println("room ID?");
-        Room room = rService.getRoomById(InputHelper.readInt(sc));
-        if(room == null) { System.out.println("Invalid room ID, returning to menu."); return; }
-        System.out.println("Room found: " +
-                room.getId() + " | " +
-                room.getPrice() + " | " +
-                room.is_available() + " | " +
-                room.getRoom_type());
+        Room room = RoomIdLookUp(sc);
+        CheckRoom(room);
         System.out.println("New room price?");
         room.setPrice(BigDecimal.valueOf(InputHelper.readDouble(sc)));
         System.out.println("Availability? 1 = available, any other = unavailable");
@@ -80,10 +74,8 @@ public class RoomController
             PrintRoomList(rService.getRoomsList(false));
         }
     }
-    private void CheckRoom(Scanner sc)
+    private void CheckRoom(Room room)
     {
-        System.out.println("room ID?");
-        Room room = rService.getRoomById(InputHelper.readInt(sc));
         if(room == null) { System.out.println("Invalid room ID, returning to menu."); return; }
         System.out.println("Room found: " +
                 room.getId() + " | " +
@@ -91,10 +83,18 @@ public class RoomController
                 room.is_available() + " | " +
                 room.getRoom_type());
     }
+    private Room RoomIdLookUp(Scanner sc){
+        Room room;
+        System.out.println("room ID?");
+        room = rService.getRoomById(InputHelper.readInt(sc));
+        return room;
+    }
+
     private void PrintRoomList(List<Room> roomsList){
         System.out.println("ID | Price | Available | Type");
         for (Room room : roomsList) {
             System.out.println(room.getId() +" | "+ room.getPrice() +" | "+ room.is_available() +" | "+ room.getRoom_type());
         }
     }
+
 }

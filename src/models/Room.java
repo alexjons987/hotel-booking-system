@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public class Room
 {
-    private int id;
+    private final int id;
     private boolean is_available;
     private BigDecimal price;
     private String room_type;
@@ -21,7 +21,7 @@ public class Room
     public BigDecimal getPrice() {return price;}
     public String getRoom_type() {return room_type;}
 
-    public void setId(int id) {this.id = id;}
+     //public void setId(int id) {this.id = id;}    should never be changed clientside
     public void setIs_available(boolean is_available) {this.is_available = is_available;}
     public void setPrice(BigDecimal price) {this.price = price;}
     public void setRoom_type(String room_type) {this.room_type = room_type;}
