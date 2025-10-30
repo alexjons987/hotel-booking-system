@@ -20,4 +20,9 @@ public class Room
     public boolean is_available() {return is_available;}
     public BigDecimal getPrice() {return price;}
     public String getRoom_type() {return room_type;}
+
+    public void setId(int id) {this.id = id;}
+    public void setIs_available(boolean is_available) {this.is_available = is_available;}
+    public void setPrice(BigDecimal price) {this.price = price;}
+    public void setRoom_type(String room_type) {this.room_type = room_type;}
 }

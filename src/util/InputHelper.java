@@ -28,4 +28,16 @@ public class InputHelper {
             System.out.printf("Please enter an allowed number (%d - %d).%n", min, max);
         }
     }
+
+    public static double readDouble(Scanner sc) {
+        while (true) {
+            System.out.print("> ");
+            String userInput = sc.nextLine().trim();
+            try {
+                return Double.parseDouble(userInput);
+            } catch (NumberFormatException ignored) {
+                System.out.println("Please enter a double.");
+            }
+        }
+    }
 }

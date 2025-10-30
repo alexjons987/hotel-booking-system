@@ -71,22 +71,24 @@ public class RoomDAOImpl implements RoomDAO
     public Room getRoomById(int id) {
         String sql = "SELECT * FROM rooms WHERE room_id = ?";
         Room retRoom;
-        try(
+        try (
                 Connection con = Database.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql);
-                ResultSet rSet = ps.executeQuery()
-        )
-        {
-            if(rSet.next()) {
-                retRoom = new Room(
-                        rSet.getInt(1),
-                        rSet.getBoolean(2),
-                        rSet.getBigDecimal(3),
-                        rSet.getString(4));
-                return retRoom;
+        ) {
+            ps.setInt(1, id);
+            try (ResultSet rSet = ps.executeQuery()) {
+                if (rSet.next()) {
+                    retRoom = new Room(
+                            rSet.getInt(1),
+                            rSet.getBoolean(2),
+                            rSet.getBigDecimal(3),
+                            rSet.getString(4));
+                    return retRoom;
+                }
             }
+        } catch (SQLException e) {
+            System.out.println("SQLException: " + e.getMessage());
         }
-        catch (SQLException e) {System.out.println("SQLException: " + e.getMessage());}
         return null;
     }
 
