@@ -16,7 +16,7 @@ Ni ska jobba i grupper om 3–5 personer och bygga systemet.
 1. ~~Lägg till ny kund (`addCustomer`)~~
 2. ~~Visa alla kunder (`getAllCustomers`)~~
 3. ~~Sök kund via e-post (`findCustomerByEmail`)~~
-4. Uppdatera kundens stad (`updateCustomerCity`)
+4. ~~Uppdatera kundens stad (`updateCustomerCity`)~~
 5. Ta bort kund (`deleteCustomer`)
 
 #### Rum

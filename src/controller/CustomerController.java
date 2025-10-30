@@ -5,6 +5,7 @@ import services.CustomerService;
 import util.InputHelper;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class CustomerController {
@@ -66,7 +67,26 @@ public class CustomerController {
 
     private void updateCustomerCity(Scanner scanner) {
         System.out.println("- Update customer city -");
-        System.out.println("[NOT IMPLEMENTED]"); // TODO: Implement
+
+        // Print all customers and select by ID
+        List<Customer> customers = customerService.getAllCustomers();
+        customers.forEach(System.out::println);
+
+        System.out.print("Select customer (ID)");
+        int customerId = InputHelper.readInt(scanner);
+
+        // Choose a new city
+        System.out.print("Enter new city: ");
+        String newCustomerCity = scanner.nextLine().trim();
+
+        // Update
+        Optional<Customer> result = customerService.updateCustomerCity(customerId, newCustomerCity);
+
+        if(result.isEmpty()){
+            System.out.println("ID not found!");
+        } else {
+            System.out.printf("Updated %d row(s)%n", result.stream().count());
+        }
     }
 
     private void removeCustomer(Scanner scanner) {
