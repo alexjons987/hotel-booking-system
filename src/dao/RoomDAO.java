@@ -9,5 +9,5 @@ public interface RoomDAO
     void addRoom(Room room);
     List<Room> getRooms(Boolean filterToAvailable);
     Room getRoomById(int id);
-    void EditRoom(Room room);
+    void editRoom(Room room);
 }
