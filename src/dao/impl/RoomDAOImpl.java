@@ -29,7 +29,7 @@ public class RoomDAOImpl implements RoomDAO {
 
     @Override
     public void addRoom(Room room) {
-        String sql = "INSERT INTO rooms(is_available, price, roomType) VALUES (?,?,?)";
+        String sql = "INSERT INTO rooms(is_available, price, room_type) VALUES (?,?,?)";
         try (
                 Connection con = Database.getConnection();
                 PreparedStatement pStat = con.prepareStatement(sql)
