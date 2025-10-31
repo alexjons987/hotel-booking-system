@@ -2,25 +2,24 @@ package models;
 
 import java.math.BigDecimal;
 
-public class Room
-{
+public class Room {
     private final int id;
-    private boolean isAvailable;
-    private BigDecimal price;
-    private String room_type;
+    private final boolean isAvailable;
+    private final BigDecimal price;
+    private final String roomType;
 
-    public Room(int id, boolean is_available, BigDecimal price, String room_type) {
+    public Room(int id, boolean isAvailable, BigDecimal price, String roomType) {
         this.id = id;
-        this.isAvailable = is_available;
+        this.isAvailable = isAvailable;
         this.price = price;
-        this.room_type = room_type;
+        this.roomType = roomType;
     }
 
     public int getId() {
         return id;
     }
 
-    public boolean is_available() {
+    public boolean isAvailable() {
         return isAvailable;
     }
 
@@ -28,19 +27,9 @@ public class Room
         return price;
     }
 
-    public String getRoom_type() {
-        return room_type;
+    public String getRoomType() {
+        return roomType;
     }
 
-    public void setIsAvailable(boolean is_available) {
-        this.isAvailable = is_available;
-    }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public void setRoom_type(String room_type) {
-        this.room_type = room_type;
-    }
 }

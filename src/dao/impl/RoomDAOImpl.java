@@ -7,15 +7,14 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoomDAOImpl implements RoomDAO
-{
+public class RoomDAOImpl implements RoomDAO {
     public RoomDAOImpl() {
         String sql = """
                 CREATE TABLE IF NOT EXISTS rooms (
                 room_id INT PRIMARY KEY AUTO_INCREMENT,
                 is_available BOOLEAN NOT NULL,
                 price DECIMAL(10,2) NOT NULL,
-                room_type TEXT NOT NULL
+                roomType TEXT NOT NULL
                 )
                 """;
         try (
@@ -30,14 +29,14 @@ public class RoomDAOImpl implements RoomDAO
 
     @Override
     public void addRoom(Room room) {
-        String sql = "INSERT INTO rooms(is_available, price, room_type) VALUES (?,?,?)";
+        String sql = "INSERT INTO rooms(is_available, price, roomType) VALUES (?,?,?)";
         try (
                 Connection con = Database.getConnection();
                 PreparedStatement pStat = con.prepareStatement(sql)
         ) {
-            pStat.setBoolean(1, room.is_available());
+            pStat.setBoolean(1, room.isAvailable());
             pStat.setBigDecimal(2, room.getPrice());
-            pStat.setString(3, room.getRoom_type());
+            pStat.setString(3, room.getRoomType());
             pStat.executeUpdate();
         } catch (SQLException e) {
             System.out.println("SQLException: " + e.getMessage());
@@ -74,7 +73,7 @@ public class RoomDAOImpl implements RoomDAO
         Room retRoom;
         try (
                 Connection con = Database.getConnection();
-                PreparedStatement ps = con.prepareStatement(sql);
+                PreparedStatement ps = con.prepareStatement(sql)
         ) {
             ps.setInt(1, id);
             try (ResultSet rSet = ps.executeQuery()) {
@@ -96,16 +95,16 @@ public class RoomDAOImpl implements RoomDAO
     public void editRoom(Room room) {
         String sql = """
                 UPDATE rooms
-                SET is_available = ?, price = ?, room_type = ?
+                SET is_available = ?, price = ?, roomType = ?
                 WHERE room_id = ?
                 """;
         try (
                 Connection con = Database.getConnection();
                 PreparedStatement pStat = con.prepareStatement(sql)
         ) {
-            pStat.setBoolean(1, room.is_available());
+            pStat.setBoolean(1, room.isAvailable());
             pStat.setBigDecimal(2, room.getPrice());
-            pStat.setString(3, room.getRoom_type());
+            pStat.setString(3, room.getRoomType());
             pStat.setInt(4, room.getId());
             pStat.executeUpdate();
         } catch (SQLException e) {
