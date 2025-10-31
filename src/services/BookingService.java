@@ -2,6 +2,7 @@ package services;
 
 import dao.impl.BookingDAOImpl;
 import db.TransactionManager;
+import dto.BookingByEmailViewDTO;
 import dto.BookingViewDTO;
 import models.Booking;
 
@@ -39,5 +40,9 @@ public class BookingService {
 
     public List<BookingViewDTO> getAllBookings() {
         return dao.getAllBookings();
+    }
+
+    public List<BookingByEmailViewDTO> getBookingByEmail(String email) {
+        return dao.getBookingByEmail(email);
     }
 }

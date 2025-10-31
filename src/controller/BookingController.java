@@ -1,5 +1,6 @@
 package controller;
 
+import dto.BookingByEmailViewDTO;
 import dto.BookingViewDTO;
 import models.Booking;
 import services.BookingService;
@@ -16,15 +17,15 @@ public class BookingController {
             System.out.println("===Bookings===");
             System.out.println("1. Add a new booking");
             System.out.println("2. See all bookings");
-            // System.out.println("3. Add a new booking");
-            //System.out.println("4. Add a new booking");
+            System.out.println("3. See booking by email");
+            //System.out.println("4. Cancel booking");
             System.out.println("0. Go back");
             int choice = InputHelper.readInt(scanner, 0, 4);
 
             switch(choice) {
                 case 1 -> bookRoom(scanner);
                 case 2 -> getAllBookings();
-                // case 3 -> getBookingsByCustomerEmail();
+                case 3 -> getBookingsByCustomerEmail(scanner);
                 // case 4 -> cancelBooking();
                 case 0 -> { return; }
                 default -> System.out.println("Invalid choice, try again!");
@@ -57,6 +58,15 @@ public class BookingController {
         }
     }
 
-    public void getBookingsByCustomerEmail() {}
+    public void getBookingsByCustomerEmail(Scanner scanner) {
+        System.out.println("Add email address to find booking:");
+        System.out.print("> ");
+        String input = scanner.nextLine().trim();
+
+        for(BookingByEmailViewDTO b : service.getBookingByEmail(input)) {
+            System.out.println(b);
+        }
+    }
+
     public void cancelBooking() {}
 }
