@@ -5,9 +5,9 @@ import java.math.BigDecimal;
 public class Room
 {
     private final int id;
-    private boolean isAvailable;
-    private BigDecimal price;
-    private String room_type;
+    private final boolean isAvailable;
+    private final BigDecimal price;
+    private final String room_type;
 
     public Room(int id, boolean is_available, BigDecimal price, String room_type) {
         this.id = id;
@@ -32,15 +32,5 @@ public class Room
         return room_type;
     }
 
-    public void setIsAvailable(boolean is_available) {
-        this.isAvailable = is_available;
-    }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public void setRoom_type(String room_type) {
-        this.room_type = room_type;
-    }
 }

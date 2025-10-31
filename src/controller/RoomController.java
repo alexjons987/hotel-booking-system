@@ -54,12 +54,13 @@ public class RoomController
         Room room = roomIdLookUp(sc);
         checkRoom(room);
         System.out.println("New room price?");
-        room.setPrice(BigDecimal.valueOf(InputHelper.readDouble(sc)));
+        BigDecimal dec = BigDecimal.valueOf(InputHelper.readDouble(sc));
         System.out.println("Availability? 1 = available, any other = unavailable");
-        room.setIsAvailable(InputHelper.readInt(sc, 0, 1) == 1);
+        boolean avlb = InputHelper.readInt(sc, 0, 1) == 1;
         System.out.println("Room type?");
-        room.setRoom_type(sc.nextLine().trim());
-        rService.editRoom(room);
+        String type = sc.nextLine().trim();
+        Room newRoom = new Room(room.getId(), avlb, dec, type);
+        rService.editRoom(newRoom);
     }
 
     private void getRoomList(boolean filtered) {
