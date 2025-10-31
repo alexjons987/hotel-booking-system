@@ -14,7 +14,7 @@ public class RoomDAOImpl implements RoomDAO {
                 room_id INT PRIMARY KEY AUTO_INCREMENT,
                 is_available BOOLEAN NOT NULL,
                 price DECIMAL(10,2) NOT NULL,
-                roomType TEXT NOT NULL
+                room_type TEXT NOT NULL
                 )
                 """;
         try (
@@ -95,7 +95,7 @@ public class RoomDAOImpl implements RoomDAO {
     public void editRoom(Room room) {
         String sql = """
                 UPDATE rooms
-                SET is_available = ?, price = ?, roomType = ?
+                SET is_available = ?, price = ?, room_type = ?
                 WHERE room_id = ?
                 """;
         try (
