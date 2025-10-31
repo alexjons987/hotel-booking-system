@@ -50,7 +50,7 @@ public class BookingService {
         try {
             TransactionManager.begin();
 
-           Integer roomID = dao.getRoomIdByBookingId(bookingID);
+            Integer roomID = dao.getRoomIdByBookingId(bookingID);
 
             if (roomID == null) {
                 TransactionManager.rollback();
@@ -63,7 +63,7 @@ public class BookingService {
             if(deleted && updated) {
                 TransactionManager.commit();
                 return true;
-            }else {
+            } else {
                 TransactionManager.rollback();
                 return false;
             }

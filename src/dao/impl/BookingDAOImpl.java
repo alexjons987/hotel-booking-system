@@ -141,13 +141,14 @@ public class BookingDAOImpl implements BookingDAO {
                 .getConnection()
                 .prepareStatement(sql)) {
             statement.setInt(1, bookingID);
-            ResultSet rs = statement.executeQuery();
 
-            if(rs.next()) {
-                return rs.getInt("room_id");
+            try (ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("room_id");
+                }
             }
 
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             return null;
         }
         return null;
