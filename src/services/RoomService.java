@@ -3,8 +3,7 @@ import dao.impl.RoomDAOImpl;
 import models.Room;
 import java.util.List;
 
-public class RoomService
-{
+public class RoomService {
     RoomDAOImpl roomDAO = new RoomDAOImpl();
 
     public void addRoom(Room room) {
