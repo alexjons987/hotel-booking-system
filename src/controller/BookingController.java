@@ -35,7 +35,7 @@ public class BookingController {
 
     public void bookRoom(Scanner scanner) {
         // TODO: Present a list of available rooms (from getAvailableRooms())
-        System.out.println("Select the desired room by its number : ");
+        System.out.println("Select desired room by its number : ");
         int room_id = InputHelper.readInt(scanner);
 
         // TODO: A list of customers (from getAllCustomers())
