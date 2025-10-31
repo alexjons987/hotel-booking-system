@@ -45,4 +45,32 @@ public class BookingService {
     public List<BookingByEmailViewDTO> getBookingByEmail(String email) {
         return dao.getBookingByEmail(email);
     }
+
+    public boolean cancelBooking(int bookingID) {
+        try {
+            TransactionManager.begin();
+
+            Integer roomID = dao.getRoomIdByBookingId(bookingID);
+
+            if (roomID == null) {
+                TransactionManager.rollback();
+                return false;
+            }
+
+            boolean deleted = dao.deleteBooking(bookingID);
+            boolean updated = dao.markRoomAvailable(roomID);
+
+            if(deleted && updated) {
+                TransactionManager.commit();
+                return true;
+            } else {
+                TransactionManager.rollback();
+                return false;
+            }
+
+        } catch (Exception e) {
+            TransactionManager.rollback();
+            return false;
+        }
+    }
 }
