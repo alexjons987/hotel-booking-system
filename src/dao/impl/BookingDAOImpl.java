@@ -64,6 +64,7 @@ public class BookingDAOImpl implements BookingDAO {
         }
     }
 
+    @Override
     public List<BookingViewDTO> getAllBookings() {
         List<BookingViewDTO> allBookings = new ArrayList<>();
         String sql = """
@@ -103,29 +104,80 @@ public class BookingDAOImpl implements BookingDAO {
                 WHERE c.email = ?;
                 """;
 
-        try(Connection conn = Database.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, email);
 
-            try(ResultSet rs = stmt.executeQuery()) {
-                while(rs.next()) {
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
                     bookingByEmail.add(
-                        new BookingByEmailViewDTO(
-                            rs.getInt("room_id"),
-                            rs.getString("room_type") ,
-                            rs.getString("name"),
-                            rs.getDate("end").toLocalDate()
-                        )
+                            new BookingByEmailViewDTO(
+                                    rs.getInt("room_id"),
+                                    rs.getString("room_type"),
+                                    rs.getString("name"),
+                                    rs.getDate("end").toLocalDate()
+                            )
                     );
                 }
-            } catch(SQLException e2) {
+            } catch (SQLException e2) {
                 e2.printStackTrace();
             }
 
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
         return bookingByEmail;
+    }
+
+    @Override
+    public Integer getRoomIdByBookingId(int bookingID) {
+        String sql = """
+                SELECT room_id FROM bookings
+                WHERE booking_id = ?;
+                """;
+
+        try(PreparedStatement statement = TransactionManager
+                .getConnection()
+                .prepareStatement(sql)) {
+            statement.setInt(1, bookingID);
+            ResultSet rs = statement.executeQuery();
+
+            if(rs.next()) {
+                return rs.getInt("room_id");
+            }
+
+        } catch(SQLException e) {
+            return null;
+        }
+        return null;
+    }
+
+    @Override
+    public boolean deleteBooking(int bookingID) {
+        String sql = "DELETE FROM bookings WHERE booking_id = ?";
+        try (PreparedStatement statement = TransactionManager.getConnection()
+                .prepareStatement(sql)) {
+
+            statement.setInt(1, bookingID);
+
+            return statement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean markRoomAvailable(int roomId) {
+        String sql = "UPDATE rooms SET is_available = true WHERE room_id = ? AND is_available = false";
+        try (PreparedStatement statement = TransactionManager.getConnection()
+                .prepareStatement(sql)) {
+
+            statement.setInt(1, roomId);
+            return statement.executeUpdate() == 1;
+
+        } catch (SQLException e) {
+            return false;
+        }
     }
 }
