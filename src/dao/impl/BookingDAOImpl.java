@@ -67,7 +67,7 @@ public class BookingDAOImpl implements BookingDAO {
     public List<BookingViewDTO> getAllBookings() {
         List<BookingViewDTO> allBookings = new ArrayList<>();
         String sql = """
-                SELECT b.booking_id, c.name, r.room_id, r.roomType, b.end FROM customers c
+                SELECT b.booking_id, c.name, r.room_id, r.room_type, b.end FROM customers c
                 JOIN bookings b ON c.customer_id = b.customer_id
                 JOIN rooms r ON b.room_id = r.room_id;
                 """;
