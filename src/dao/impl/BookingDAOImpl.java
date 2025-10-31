@@ -82,7 +82,7 @@ public class BookingDAOImpl implements BookingDAO {
                     rs.getInt("booking_id"),
                     rs.getString("name"),
                     rs.getInt("room_id"),
-                    rs.getString("roomType"),
+                    rs.getString("room_type"),
                     rs.getDate("end").toLocalDate()
                 ));
             }
